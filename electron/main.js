@@ -23,8 +23,13 @@ function initialize () {
   makeSingleInstance()
 
   function runBlazorHost() {
-    blazorHost = spawn('dotnet', ['EasyAbp.AbpHelper.Gui.Blazor.dll', '--urls', 'https://localhost:44313'], {cwd: "./dotnet/EasyAbp.AbpHelper.Gui.Blazor"})
-
+    if (process.platform === 'darwin'){
+      let workfolder = path.join(__dirname.replace('/Resources/app.asar', ''), "/dotnet/EasyAbp.AbpHelper.Gui.Blazor")
+      blazorHost = spawn('dotnet', ['EasyAbp.AbpHelper.Gui.Blazor.dll', '--urls', 'https://localhost:44313'],{cwd: workfolder})
+    }else{
+      blazorHost = spawn('dotnet', ['EasyAbp.AbpHelper.Gui.Blazor.dll', '--urls', 'https://localhost:44313'], {cwd: "./dotnet/EasyAbp.AbpHelper.Gui.Blazor"})
+    }
+    
     blazorHost.on('close', function (code) {
       if (code !== 0) {
         console.log(`grep process exited with code ${code}`);
@@ -74,7 +79,7 @@ function initialize () {
 
     mainWindow = new BrowserWindow(windowOptions)
     mainWindow.setMenuBarVisibility(false)
-    mainWindow.loadURL(path.join('https://localhost:44313'))
+    mainWindow.loadURL(`file://${__dirname}/index.html`)
 
     // Launch fullscreen with DevTools open, usage: npm run debug
     if (debug) {
@@ -90,6 +95,9 @@ function initialize () {
       mainWindow.hide(); 
       if (!forceQuit) event.preventDefault();
     })
+    mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+      shell.openExternal(url);
+    });
   }
 
   app.on('ready', () => {
@@ -130,7 +138,7 @@ function initialize () {
     if (process.platform === 'darwin') {
       forceQuit = true;
     }
- });
+  });
 }
 
 let tray = null
@@ -171,6 +179,10 @@ let template = [{
       label: 'AbpHelper CLI',
       icon: path.join(__dirname, '/assets/app-icon/menuitem/abphelper/icon.png'),
       click: () => shell.openExternal('https://github.com/EasyAbp/AbpHelper.CLI')
+    }, {
+      label: 'Discord channel',
+      icon: path.join(__dirname, '/assets/app-icon/menuitem/discord/icon.png'),
+      click: () => shell.openExternal('https://discord.gg/S6QaezrCRq')
     }]
   },
   {

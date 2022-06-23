@@ -24,11 +24,11 @@
   <ItemGroup>
     <ProjectReference Include="..\EasyAbp.AbpHelper.Gui.Application\EasyAbp.AbpHelper.Gui.Application.csproj" />
     <ProjectReference Include="..\EasyAbp.AbpHelper.Gui.HttpApi\EasyAbp.AbpHelper.Gui.HttpApi.csproj" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Components.Server.LeptonXLiteTheme" Version="$(AbpLeptonXThemeVersion)" />
     <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.Swashbuckle" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="$(AbpVersion)" />
-    <PackageReference Include="Volo.Abp.AspNetCore.Components.Server.BasicTheme" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.SettingManagement.Blazor.Server" Version="$(AbpVersion)" />
   </ItemGroup>
 
@@ -46,6 +46,10 @@
     <None Update="Pages\**\*.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Pages\AbpCli\Components\Clean\Clean.razor" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using EasyAbp.AbpHelper.Gui.UpdateCheck;
 using Microsoft.AspNetCore.Components;
+using Volo.Abp.Cli;
 
 namespace EasyAbp.AbpHelper.Gui.Blazor.Pages
 {
@@ -22,6 +23,16 @@ namespace EasyAbp.AbpHelper.Gui.Blazor.Pages
             LatestVersion = result.LatestVersion;
             CurrentVersion = result.CurrentVersion;
             UpdateCheckAlertVisible = result.ShouldUpdate;
+        }
+
+        protected virtual string GetAbpVersion()
+        {
+            return typeof(AbpCliCoreModule).Assembly.GetName().Version?.ToString(3);
+        }
+
+        protected virtual string GetAbpHelperGuiVersion()
+        {
+            return typeof(GuiBlazorModule).Assembly.GetName().Version?.ToString(3);
         }
     }
 }
