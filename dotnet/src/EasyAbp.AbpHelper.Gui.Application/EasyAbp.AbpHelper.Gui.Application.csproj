@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\AbpHelper.CLI\src\AbpHelper.Core\AbpHelper.Core.csproj" />
+    <ProjectReference Include="..\..\..\AbpHelper.CLI\src\AbpHelper.Core\AbpHelper.Core.csproj" />
     <ProjectReference Include="..\EasyAbp.AbpHelper.Gui.Application.Contracts\EasyAbp.AbpHelper.Gui.Application.Contracts.csproj" />
   </ItemGroup>
 
